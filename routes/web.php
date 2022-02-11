@@ -26,3 +26,6 @@ Route::resource('usuarios', App\Http\Controllers\UsuarioController::class);
 
 
 Route::resource('tarefas', App\Http\Controllers\TarefasController::class);
+
+
+Route::resource('cleanRooms', App\Http\Controllers\CleanRoomController::class);
