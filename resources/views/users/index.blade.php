@@ -9,8 +9,8 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
-                       href="{{ route('usuarios.create') }}">
-                        Criar novo
+                       href="{{ route('users.create') }}">
+                        Novo usuário
                     </a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
 
         <div class="card">
             <div class="card-body p-0">
-                @include('usuarios.table')
+                @include('users.table')
 
                 <div class="card-footer clearfix">
                     <div class="float-right">

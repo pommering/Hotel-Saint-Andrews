@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Create Usuario</h1>
+                    <h1>Criar usuários</h1>
                 </div>
             </div>
         </div>
@@ -17,19 +17,19 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'usuarios.store']) !!}
+            {!! Form::open(['route' => 'users.store']) !!}
 
             <div class="card-body">
 
                 <div class="row">
-                    @include('usuarios.fields')
+                    @include('users.fields')
                 </div>
 
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('usuarios.index') }}" class="btn btn-default">Cancel</a>
+                {!! Form::submit('Criar', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</a>
             </div>
 
             {!! Form::close() !!}

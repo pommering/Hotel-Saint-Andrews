@@ -1,7 +1,7 @@
 <li class="nav-item">
-    <a href="{{ route('usuarios.index') }}"
-       class="nav-link {{ Request::is('usuarios*') ? 'active' : '' }}">
-        <p>Usuarios</p>
+    <a href="{{ route('users.index') }}"
+       class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+        <p>Usuários</p>
     </a>
 </li>
 

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Tarefas;
 use App\Models\User;
-use App\Models\Usuario;
+
 use Illuminate\Support\ServiceProvider;
 use View;
 
@@ -32,7 +32,7 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('activityItems', $activityItems);
         });
         View::composer(['clean_rooms.fields'], function ($view) {
-            $userItems = Usuario::pluck('name','id')->toArray();
+            $userItems = User::pluck('name','id')->toArray();
             $view->with('userItems', $userItems);
         });
         //

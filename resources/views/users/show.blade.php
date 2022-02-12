@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('usuarios.index') }}">
+                       href="{{ route('users.index') }}">
                         Voltar
                     </a>
                 </div>
@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('usuarios.show_fields')
+                    @include('users.show_fields')
                 </div>
             </div>
         </div>

@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Usuario;
+use App\Models\User;
 use App\Repositories\BaseRepository;
 
 /**
- * Class UsuarioRepository
+ * Class UserRepository
  * @package App\Repositories
  * @version February 10, 2022, 4:15 am UTC
 */
 
-class UsuarioRepository extends BaseRepository
+class UserRepository extends BaseRepository
 {
     /**
      * @var array
@@ -39,6 +39,6 @@ class UsuarioRepository extends BaseRepository
      **/
     public function model()
     {
-        return Usuario::class;
+        return User::class;
     }
 }

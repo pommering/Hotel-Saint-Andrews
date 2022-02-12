@@ -21,11 +21,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Route::get('/test', [App\Http\Controllers\HomeController::class, 'index'])->name('test');
 
-Route::resource('usuarios', App\Http\Controllers\UsuarioController::class);
-
+Route::resource('/users', App\Http\Controllers\UserController::class);
 
 Route::resource('tarefas', App\Http\Controllers\TarefasController::class);
-
 
 Route::resource('cleanRooms', App\Http\Controllers\CleanRoomController::class);

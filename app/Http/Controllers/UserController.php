@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUsuarioRequest;
-use App\Http\Requests\UpdateUsuarioRequest;
-use App\Repositories\UsuarioRepository;
+use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Flash;
 use Response;
 
-class UsuarioController extends AppBaseController
+class UserController extends AppBaseController
 {
-    /** @var UsuarioRepository $usuarioRepository*/
-    private $usuarioRepository;
+    /** @var UserRepository $userRepository*/
+    private $userRepository;
 
-    public function __construct(UsuarioRepository $usuarioRepo)
+    public function __construct(UserRepository $userRepo)
     {
-        $this->usuarioRepository = $usuarioRepo;
+        $this->middleware('auth');
+        $this->userRepository = $userRepo;
     }
 
     /**
@@ -29,10 +29,9 @@ class UsuarioController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $usuarios = $this->usuarioRepository->all();
+        $user = $this->userRepository->all();
 
-        return view('usuarios.index')
-            ->with('usuarios', $usuarios);
+        return view('users.index')->with('users', $user);
     }
 
     /**
@@ -42,7 +41,7 @@ class UsuarioController extends AppBaseController
      */
     public function create()
     {
-        return view('usuarios.create');
+        return view('users.create');
     }
 
     /**
@@ -52,15 +51,15 @@ class UsuarioController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateUsuarioRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
 
-        $usuario = $this->usuarioRepository->create($input);
+        $usuario = $this->userRepository->create($input);
 
         Flash::success('Usuario saved successfully.');
 
-        return redirect(route('usuarios.index'));
+        return redirect(route('users.index'));
     }
 
     /**
@@ -72,15 +71,15 @@ class UsuarioController extends AppBaseController
      */
     public function show($id)
     {
-        $usuario = $this->usuarioRepository->find($id);
+        $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
             Flash::error('Usuario not found');
 
-            return redirect(route('usuarios.index'));
+            return redirect(route('users.index'));
         }
 
-        return view('usuarios.show')->with('usuario', $usuario);
+        return view('users.show')->with('users', $usuario);
     }
 
     /**
@@ -92,15 +91,15 @@ class UsuarioController extends AppBaseController
      */
     public function edit($id)
     {
-        $usuario = $this->usuarioRepository->find($id);
+        $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
             Flash::error('Usuario not found');
 
-            return redirect(route('usuarios.index'));
+            return redirect(route('users.index'));
         }
 
-        return view('usuarios.edit')->with('usuario', $usuario);
+        return view('users.edit')->with('users', $usuario);
     }
 
     /**
@@ -111,21 +110,29 @@ class UsuarioController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateUsuarioRequest $request)
+    public function update($id, Request $request)
     {
-        $usuario = $this->usuarioRepository->find($id);
+        $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
-            Flash::error('Usuario not found');
-
-            return redirect(route('usuarios.index'));
+            Flash::error('Usuario não encontrado');
+            return redirect(route('users.index'));
         }
 
-        $usuario = $this->usuarioRepository->update($request->all(), $id);
+        $updateUser = [
+            'name' => $request->name,
+            'username' => $request->username
+        ];
 
-        Flash::success('Usuario updated successfully.');
+        if(!empty($request->password)) {
+            $updateUser['password'] = Hash::make($request->password);
+        }
 
-        return redirect(route('usuarios.index'));
+        $usuario->fill($updateUser)->save();
+
+        Flash::success('Usuário atualizado!');
+
+        return redirect(route('users.index'));
     }
 
     /**
@@ -139,18 +146,20 @@ class UsuarioController extends AppBaseController
      */
     public function destroy($id)
     {
-        $usuario = $this->usuarioRepository->find($id);
+        $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
             Flash::error('Usuario not found');
 
-            return redirect(route('usuarios.index'));
+            return redirect(route('users.index'));
         }
 
-        $this->usuarioRepository->delete($id);
+        $this->userRepository->delete($id);
 
         Flash::success('Usuario deleted successfully.');
 
-        return redirect(route('usuarios.index'));
+        return redirect(route('users.index'));
     }
+
+
 }
