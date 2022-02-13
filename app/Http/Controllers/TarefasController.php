@@ -72,15 +72,7 @@ class TarefasController extends AppBaseController
      */
     public function show($id)
     {
-        $tarefas = $this->tarefasRepository->find($id);
-
-        if (empty($tarefas)) {
-            Flash::error('Tarefas not found');
-
-            return redirect(route('tarefas.index'));
-        }
-
-        return view('tarefas.show')->with('tarefas', $tarefas);
+        abort(404);
     }
 
     /**
