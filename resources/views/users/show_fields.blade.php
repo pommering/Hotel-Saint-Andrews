@@ -6,7 +6,7 @@
 
 <!-- Username Field -->
 <div class="col-sm-12">
-    {!! Form::label('username', 'Username:') !!}
+    {!! Form::label('username', 'Acesso:') !!}
     <p>{{ $users->username }}</p>
 </div>
 
