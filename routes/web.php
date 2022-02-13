@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['reset' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Route::get('/test', [App\Http\Controllers\HomeController::class, 'index'])->name('test');
 
-Route::resource('/users', App\Http\Controllers\UserController::class);
+Route::resource('users', App\Http\Controllers\UserController::class);
 
 Route::resource('tarefas', App\Http\Controllers\TarefasController::class);
 

@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Edit Clean Room</h1>
+                    <h1>Editar quarto limpo</h1>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
                 <a href="{{ route('cleanRooms.index') }}" class="btn btn-default">Cancel</a>
             </div>
 

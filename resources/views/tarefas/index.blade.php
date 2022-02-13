@@ -10,7 +10,7 @@
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('tarefas.create') }}">
-                        Add New
+                        Nova tarefa
                     </a>
                 </div>
             </div>
@@ -26,14 +26,7 @@
         <div class="card">
             <div class="card-body p-0">
                 @include('tarefas.table')
-
-                <div class="card-footer clearfix">
-                    <div class="float-right">
-                        
-                    </div>
-                </div>
             </div>
-
         </div>
     </div>
 
