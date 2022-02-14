@@ -1,22 +1,21 @@
 <div class="table-responsive">
-    <table class="table" id="tarefas-table">
+    <table class="table m-0" id="tarefas-table">
         <thead>
-        <tr>
-            <th>Assignment</th>
-            <th colspan="3">Action</th>
-        </tr>
+            <tr>
+                <th>Tarefas</th>
+                @can('manager')
+                <th colspan="2">Ação</th>
+                @endif
+            </tr>
         </thead>
         <tbody>
         @foreach($tarefas as $tarefas)
             <tr>
                 <td>{{ $tarefas->assignment }}</td>
+                @can('manager')
                 <td width="120">
                     {!! Form::open(['route' => ['tarefas.destroy', $tarefas->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('tarefas.show', [$tarefas->id]) }}"
-                           class='btn btn-default btn-xs'>
-                            <i class="far fa-eye"></i>
-                        </a>
                         <a href="{{ route('tarefas.edit', [$tarefas->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
@@ -25,6 +24,7 @@
                     </div>
                     {!! Form::close() !!}
                 </td>
+                @endif
             </tr>
         @endforeach
         </tbody>

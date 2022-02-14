@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCleanRoomRequest;
-use App\Http\Requests\UpdateCleanRoomRequest;
 use App\Repositories\CleanRoomRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Facades\Gate;
 
 class CleanRoomController extends AppBaseController
 {
@@ -17,6 +19,7 @@ class CleanRoomController extends AppBaseController
 
     public function __construct(CleanRoomRepository $cleanRoomRepo)
     {
+        $this->middleware('auth');
         $this->cleanRoomRepository = $cleanRoomRepo;
     }
 
@@ -31,6 +34,16 @@ class CleanRoomController extends AppBaseController
     {
         $cleanRooms = $this->cleanRoomRepository->all();
 
+        $tasks = Array();
+
+        foreach ($cleanRooms as &$room) {
+            foreach ($room->tasks as $task) {
+                $tasks[] = $task->assignment;
+            }
+            $room->tasksDone = $tasks;
+            $tasks = [];
+        }
+
         return view('clean_rooms.index')
             ->with('cleanRooms', $cleanRooms);
     }
@@ -42,7 +55,7 @@ class CleanRoomController extends AppBaseController
      */
     public function create()
     {
-        return view('clean_rooms.create');
+        return view('clean_rooms.create')->with('tasks', []);;
     }
 
     /**
@@ -55,8 +68,19 @@ class CleanRoomController extends AppBaseController
     public function store(CreateCleanRoomRequest $request)
     {
         $input = $request->all();
+        $tasks = Array();
+
+        foreach ($input['activityItem'] as $valor) {
+           $tasks[] = Array('tarefas_id' => (int)$valor);
+        }
+
+        if(!Gate::allows('manager')) {
+            $input['user_id']	 = Auth::user()->id;
+        }
 
         $cleanRoom = $this->cleanRoomRepository->create($input);
+
+        $cleanRoom->tasks()->attach($tasks);
 
         Flash::success('Clean Room saved successfully.');
 
@@ -72,7 +96,14 @@ class CleanRoomController extends AppBaseController
      */
     public function show($id)
     {
+
         $cleanRoom = $this->cleanRoomRepository->find($id);
+
+        $tasks = Array();
+
+        foreach ($cleanRoom->tasks as $task) {
+            $tasks[] = $task->assignment;
+        }
 
         if (empty($cleanRoom)) {
             Flash::error('Clean Room not found');
@@ -80,7 +111,7 @@ class CleanRoomController extends AppBaseController
             return redirect(route('cleanRooms.index'));
         }
 
-        return view('clean_rooms.show')->with('cleanRoom', $cleanRoom);
+        return view('clean_rooms.show')->with('cleanRoom', $cleanRoom)->with('tasksDone', implode (", ", $tasks));
     }
 
     /**
@@ -100,18 +131,24 @@ class CleanRoomController extends AppBaseController
             return redirect(route('cleanRooms.index'));
         }
 
-        return view('clean_rooms.edit')->with('cleanRoom', $cleanRoom);
+        $tasks = Array();
+
+        foreach ($cleanRoom->tasks as $task) {
+            $tasks[] = $task->id;
+        }
+
+        return view('clean_rooms.edit')->with('cleanRoom', $cleanRoom)->with('tasks', $tasks);
     }
 
     /**
      * Update the specified CleanRoom in storage.
      *
      * @param int $id
-     * @param UpdateCleanRoomRequest $request
+     * @param Request $request
      *
      * @return Response
      */
-    public function update($id, UpdateCleanRoomRequest $request)
+    public function update($id, Request $request)
     {
         $cleanRoom = $this->cleanRoomRepository->find($id);
 
@@ -122,6 +159,14 @@ class CleanRoomController extends AppBaseController
         }
 
         $cleanRoom = $this->cleanRoomRepository->update($request->all(), $id);
+
+        $tasks = Array();
+
+        foreach ($request->activityItem as $valor) {
+           $tasks[] = $valor;
+        }
+
+        $cleanRoom->tasks()->sync($tasks);
 
         Flash::success('Clean Room updated successfully.');
 

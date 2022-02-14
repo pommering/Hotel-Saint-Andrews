@@ -1,31 +1,33 @@
 <div class="table-responsive">
-    <table class="table" id="usuarios-table">
+    <table class="table m-0" id="usuarios-table">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Username</th>
+                <th>Acesso</th>
                 <th>Cargo</th>
                 <th colspan="3">Ações</th>
             </tr>
         </thead>
         <tbody>
-        @foreach($users as $usuario)
+        @foreach($users as $user)
             <tr>
-                <td>{{ $usuario->name }}</td>
-                <td>{{ $usuario->username }}</td>
-                <td>{{ ($usuario->manager !== false) ? 'Gerente' : 'Faxineira' }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->username }}</td>
+                <td>{{ ($user->manager) ? 'Gerente' : 'Faxineira' }}</td>
                 <td width="120">
-                    {!! Form::open(['route' => ['users.destroy', $usuario->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{{ route('users.show', [$usuario->id]) }}"
+                        <a href="{{ route('users.show', [$user->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-eye"></i>
                         </a>
-                        <a href="{{ route('users.edit', [$usuario->id]) }}"
+                        <a href="{{ route('users.edit', [$user->id]) }}"
                            class='btn btn-default btn-xs'>
                             <i class="far fa-edit"></i>
                         </a>
-                        {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        @cannot('equal-id', $user)
+                            {!! Form::button('<i class="far fa-trash-alt"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        @endif
                     </div>
                     {!! Form::close() !!}
                 </td>

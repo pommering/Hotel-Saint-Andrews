@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Flash;
 use Response;
+use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends AppBaseController
 {
@@ -29,6 +33,10 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
+        if (!Gate::allows('manager')) {
+            abort(403);
+        }
+
         $user = $this->userRepository->all();
 
         return view('users.index')->with('users', $user);
@@ -41,7 +49,7 @@ class UserController extends AppBaseController
      */
     public function create()
     {
-        return view('users.create');
+        return view('users.create')->with('users', new User());
     }
 
     /**
@@ -53,7 +61,27 @@ class UserController extends AppBaseController
      */
     public function store(Request $request)
     {
+
         $input = $request->all();
+
+        $niceNames = array(
+            'name' => 'Nome',
+            'username' => 'Acesso',
+            'password' => 'Senha'
+        );
+
+        $validator = validator::make($input, [
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        $validator->setAttributeNames($niceNames);
+        $validator->validate();
+
+
+
+        $input['password'] = Hash::make($request->password);
 
         $usuario = $this->userRepository->create($input);
 
@@ -79,6 +107,7 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
+
         return view('users.show')->with('users', $usuario);
     }
 
@@ -91,6 +120,7 @@ class UserController extends AppBaseController
      */
     public function edit($id)
     {
+
         $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
@@ -121,7 +151,8 @@ class UserController extends AppBaseController
 
         $updateUser = [
             'name' => $request->name,
-            'username' => $request->username
+            'username' => $request->username,
+            'manager' => $request->manager,
         ];
 
         if(!empty($request->password)) {

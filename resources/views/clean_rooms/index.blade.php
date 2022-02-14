@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Clean Rooms</h1>
+                    <h1>Quartos limpos</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('cleanRooms.create') }}">
-                        Add New
+                        Adicionar quarto limpo
                     </a>
                 </div>
             </div>
@@ -27,11 +27,6 @@
             <div class="card-body p-0">
                 @include('clean_rooms.table')
 
-                <div class="card-footer clearfix">
-                    <div class="float-right">
-                        
-                    </div>
-                </div>
             </div>
 
         </div>
