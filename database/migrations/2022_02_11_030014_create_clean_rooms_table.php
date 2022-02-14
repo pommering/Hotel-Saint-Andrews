@@ -23,8 +23,8 @@ class CreateCleanRoomsTable extends Migration
             $table->dateTime('end_date');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('activitie_id')->references('id')->on('activities');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreign('activitie_id')->references('id')->on('activities')->onUpdate('cascade')->onDelete('cascade');;
         });
     }
 

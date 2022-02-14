@@ -7,13 +7,13 @@
 <!-- User Id Field -->
 <div class="col-sm-12">
     {!! Form::label('user_id', 'Usuário responsável:') !!}
-    <p>{{ $cleanRoom->user_id }}</p>
+    <p>{{ $cleanRoom->user->name }}</p>
 </div>
 
 <!-- Activitie Id Field -->
 <div class="col-sm-12">
     {!! Form::label('activitie_id', 'Tarefa feita:') !!}
-    <p>{{ $cleanRoom->activitie_id }}</p>
+    <p>{{ $tasksDone }}</p>
 </div>
 
 <!-- Start Date Field -->

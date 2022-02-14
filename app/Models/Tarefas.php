@@ -20,7 +20,7 @@ class Tarefas extends Model
     use HasFactory;
 
     public $table = 'activities';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -55,5 +55,8 @@ class Tarefas extends Model
         'deleted_at' => 'nullable'
     ];
 
-    
+    public function clearRooms() {
+        return $this->belongsToMany('App\Models\CleanRoom');
+    }
+
 }

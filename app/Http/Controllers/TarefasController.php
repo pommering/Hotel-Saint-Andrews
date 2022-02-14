@@ -17,6 +17,7 @@ class TarefasController extends AppBaseController
 
     public function __construct(TarefasRepository $tarefasRepo)
     {
+        $this->middleware('auth');
         $this->tarefasRepository = $tarefasRepo;
     }
 

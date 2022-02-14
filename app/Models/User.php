@@ -34,4 +34,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function clearRoom() {
+        return $this->belongsTo('App\Models\CleanRoom');
+    }
+
 }

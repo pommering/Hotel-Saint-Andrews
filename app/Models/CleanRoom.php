@@ -26,7 +26,7 @@ class CleanRoom extends Model
     use HasFactory;
 
     public $table = 'clean_rooms';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -57,8 +57,15 @@ class CleanRoom extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    
+    public function tasks() {
+        return $this->belongsToMany('App\Models\Tarefas');
+    }
+
+    public function user() {
+        return $this->belongsTo('App\Models\User');
+    }
+
 }
