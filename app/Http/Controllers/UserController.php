@@ -79,8 +79,6 @@ class UserController extends AppBaseController
         $validator->setAttributeNames($niceNames);
         $validator->validate();
 
-
-
         $input['password'] = Hash::make($request->password);
 
         $usuario = $this->userRepository->create($input);
@@ -106,7 +104,6 @@ class UserController extends AppBaseController
 
             return redirect(route('users.index'));
         }
-
 
         return view('users.show')->with('users', $usuario);
     }
