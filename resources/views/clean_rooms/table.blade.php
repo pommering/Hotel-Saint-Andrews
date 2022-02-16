@@ -18,7 +18,7 @@
                 <td>{{ $cleanRoom->user->name }}</td>
                 <td>{{ implode (", ", $cleanRoom->tasksDone) }}</td>
                 <td>{{ date('d/m/Y H:i:s', strtotime($cleanRoom->start_date)) }}</td>
-                <td>{{ date('d/m/Y H:i:s', strtotime($cleanRoom->end_date)) }}</td>
+                <td>{{ date('d/m/Y H:i:s', $cleanRoom->end_date) }}</td>
                 <td width="120">
                     {!! Form::open(['route' => ['cleanRooms.destroy', $cleanRoom->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
