@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 use Flash;
 use Response;
 use Illuminate\Support\Facades\Auth;
-
+use DateTime;
+use DateInterval;
 use Illuminate\Support\Facades\Gate;
 
 class CleanRoomController extends AppBaseController
@@ -37,8 +38,17 @@ class CleanRoomController extends AppBaseController
         $tasks = Array();
 
         foreach ($cleanRooms as &$room) {
+
+            $room->end_date = strtotime($room->start_date);
             foreach ($room->tasks as $task) {
                 $tasks[] = $task->assignment;
+
+                $parts = explode(':', $task->time_execution->time_execution);
+
+                $seconds = ($parts[0] * 60 * 60) + ($parts[1] * 60) + $parts[2];
+
+                $room->end_date += $seconds;
+
             }
             $room->tasksDone = $tasks;
             $tasks = [];
@@ -68,14 +78,19 @@ class CleanRoomController extends AppBaseController
     public function store(CreateCleanRoomRequest $request)
     {
         $input = $request->all();
+
         $tasks = Array();
 
-        foreach ($input['activityItem'] as $valor) {
-           $tasks[] = Array('tarefas_id' => (int)$valor);
+        foreach ($input['activityItem']['task'] as $key => $task) {
+            $tasks[$key]['tarefas_id'] = (int)$task;
+        }
+
+        foreach ($input['activityItem']['timeTask'] as $key => $taskTime) {
+            $tasks[$key]['time_execution'] = $taskTime;
         }
 
         if(!Gate::allows('manager')) {
-            $input['user_id']	 = Auth::user()->id;
+            $input['user_id'] = Auth::user()->id;
         }
 
         $cleanRoom = $this->cleanRoomRepository->create($input);

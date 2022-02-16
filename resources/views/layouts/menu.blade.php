@@ -1,3 +1,10 @@
+<li class="nav-item">
+    <a href="{{ route('ranking.index') }}"
+       class="nav-link {{ Request::is('ranking*') ? 'active' : '' }}">
+        <p>Ranking</p>
+    </a>
+</li>
+
 @can('manager')
 <li class="nav-item">
     <a href="{{ route('users.index') }}"

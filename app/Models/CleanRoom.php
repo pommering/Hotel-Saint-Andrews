@@ -37,7 +37,6 @@ class CleanRoom extends Model
         'user_id',
         'activitie_id',
         'start_date',
-        'end_date'
     ];
 
     /**
@@ -47,8 +46,7 @@ class CleanRoom extends Model
      */
     protected $casts = [
         'room_number' => 'string',
-        'start_date' => 'datetime',
-        'end_date' => 'datetime'
+        'start_date' => 'datetime'
     ];
 
     /**
@@ -61,7 +59,7 @@ class CleanRoom extends Model
     ];
 
     public function tasks() {
-        return $this->belongsToMany('App\Models\Tarefas');
+        return $this->belongsToMany('App\Models\Tarefas')->as('time_execution')->withPivot('time_execution');;
     }
 
     public function user() {
