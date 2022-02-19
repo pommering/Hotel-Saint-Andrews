@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Response;
+use Illuminate\Support\Facades\Validator;
 
 class TarefasController extends AppBaseController
 {
@@ -53,13 +54,24 @@ class TarefasController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateTarefasRequest $request)
+    public function store(Request $request)
     {
         $input = $request->all();
 
+        $niceNames = array(
+            'assignment' => 'Tarefa',
+        );
+
+        $validator = validator::make($input, [
+            'assignment' => ['required', 'string', 'max:255']
+        ]);
+
+        $validator->setAttributeNames($niceNames);
+        $validator->validate();
+
         $tarefas = $this->tarefasRepository->create($input);
 
-        Flash::success('Tarefas saved successfully.');
+        Flash::success('Tarefa criada!');
 
         return redirect(route('tarefas.index'));
     }
@@ -88,7 +100,7 @@ class TarefasController extends AppBaseController
         $tarefas = $this->tarefasRepository->find($id);
 
         if (empty($tarefas)) {
-            Flash::error('Tarefas not found');
+            Flash::error('Tarefa não encontrada');
 
             return redirect(route('tarefas.index'));
         }
@@ -104,19 +116,33 @@ class TarefasController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateTarefasRequest $request)
+    public function update($id, Request $request)
     {
+
+        $input = $request->all();
+
+        $niceNames = array(
+            'assignment' => 'Tarefa',
+        );
+
+        $validator = validator::make($input, [
+            'assignment' => ['required', 'string', 'max:255']
+        ]);
+
+        $validator->setAttributeNames($niceNames);
+        $validator->validate();
+
         $tarefas = $this->tarefasRepository->find($id);
 
         if (empty($tarefas)) {
-            Flash::error('Tarefas not found');
+            Flash::error('Tarefas não encontrada');
 
             return redirect(route('tarefas.index'));
         }
 
         $tarefas = $this->tarefasRepository->update($request->all(), $id);
 
-        Flash::success('Tarefas updated successfully.');
+        Flash::success('Tarefa alterada.');
 
         return redirect(route('tarefas.index'));
     }
@@ -135,14 +161,14 @@ class TarefasController extends AppBaseController
         $tarefas = $this->tarefasRepository->find($id);
 
         if (empty($tarefas)) {
-            Flash::error('Tarefas not found');
+            Flash::error('Tarefa não encontrada');
 
             return redirect(route('tarefas.index'));
         }
 
         $this->tarefasRepository->delete($id);
 
-        Flash::success('Tarefas deleted successfully.');
+        Flash::success('Tarefa deletada!');
 
         return redirect(route('tarefas.index'));
     }

@@ -83,7 +83,7 @@ class UserController extends AppBaseController
 
         $usuario = $this->userRepository->create($input);
 
-        Flash::success('Usuario saved successfully.');
+        Flash::success('Usuário Alterado!');
 
         return redirect(route('users.index'));
     }
@@ -100,7 +100,7 @@ class UserController extends AppBaseController
         $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
-            Flash::error('Usuario not found');
+            Flash::error('Usuário não encontrado');
 
             return redirect(route('users.index'));
         }
@@ -121,7 +121,7 @@ class UserController extends AppBaseController
         $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
-            Flash::error('Usuario not found');
+            Flash::error('Usuário não encontrado');
 
             return redirect(route('users.index'));
         }
@@ -142,7 +142,7 @@ class UserController extends AppBaseController
         $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
-            Flash::error('Usuario não encontrado');
+            Flash::error('Usuário não encontrado');
             return redirect(route('users.index'));
         }
 
@@ -177,14 +177,14 @@ class UserController extends AppBaseController
         $usuario = $this->userRepository->find($id);
 
         if (empty($usuario)) {
-            Flash::error('Usuario not found');
+            Flash::error('Usuário não encontrado');
 
             return redirect(route('users.index'));
         }
 
         $this->userRepository->delete($id);
 
-        Flash::success('Usuario deleted successfully.');
+        Flash::success('Usuario deletado!');
 
         return redirect(route('users.index'));
     }
