@@ -42,7 +42,7 @@
     <!-- /.login-box-body -->
     <div class="card">
         <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">Entrar no sistema</p>
 
             <form method="post" action="{{ url('/login') }}">
                 @csrf
@@ -78,17 +78,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">Mantenha-me conectado</label>
-                        </div>
-                    </div>
-
-                    <div class="col-4">
+                    <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                     </div>
-
                 </div>
             </form>
 
