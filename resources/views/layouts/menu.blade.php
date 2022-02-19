@@ -1,9 +1,11 @@
+@can('manager')
 <li class="nav-item">
     <a href="{{ route('ranking.index') }}"
        class="nav-link {{ Request::is('ranking*') ? 'active' : '' }}">
         <p>Ranking</p>
     </a>
 </li>
+@endif
 
 @can('manager')
 <li class="nav-item">
@@ -25,7 +27,7 @@
 <li class="nav-item">
     <a href="{{ route('cleanRooms.index') }}"
        class="nav-link {{ Request::is('cleanRooms*') ? 'active' : '' }}">
-        <p>Clean Rooms</p>
+        <p>Quartos limpos</p>
     </a>
 </li>
 

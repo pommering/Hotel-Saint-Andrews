@@ -7,12 +7,14 @@
                 <div class="col-sm-6">
                     <h1>Tarefas</h1>
                 </div>
+                @can('manager')
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
                        href="{{ route('tarefas.create') }}">
                         Nova tarefa
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </section>
