@@ -56,9 +56,10 @@ class RankingController extends Controller
         $input = $request->all();
 
         if(array_key_exists('anos', $input) &&
-        array_key_exists('mes', $input) &&
-        $this->validateDate($input['anos'], 'Y') &&
-        $this->validateDate($input['mes'], 'n')) {
+            array_key_exists('mes', $input) &&
+            $this->validateDate($input['anos'], 'Y') &&
+            $this->validateDate($input['mes'], 'n')
+        ) {
 
             $date_search = [
                 date('Y-m-d', strtotime($input['anos'].'-'.$input['mes'].'-01')),
