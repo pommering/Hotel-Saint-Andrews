@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use DateTime;
 use DateInterval;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class CleanRoomController extends AppBaseController
 {
@@ -65,7 +66,7 @@ class CleanRoomController extends AppBaseController
      */
     public function create()
     {
-        return view('clean_rooms.create')->with('tasks', []);;
+        return view('clean_rooms.create')->with('tasks', Array('id' => [], 'timeTask' => []));;
     }
 
     /**
@@ -78,6 +79,21 @@ class CleanRoomController extends AppBaseController
     public function store(CreateCleanRoomRequest $request)
     {
         $input = $request->all();
+
+        $niceNames = array(
+            'room_number' => 'Numero do Quarto',
+            'start_date' => 'Data de início',
+            'activityItem' => 'Atividades'
+        );
+
+        $validator = validator::make($input, [
+            'room_number' => ['required', 'string', 'max:255'],
+            'start_date' => ['required', 'date', 'max:255'],
+            'activityItem' => ['required', 'exists'],
+        ]);
+
+        $validator->setAttributeNames($niceNames);
+        $validator->validate();
 
         $tasks = Array();
 
@@ -97,7 +113,7 @@ class CleanRoomController extends AppBaseController
 
         $cleanRoom->tasks()->attach($tasks);
 
-        Flash::success('Clean Room saved successfully.');
+        Flash::success('Limpeza criada com sucesso.');
 
         return redirect(route('cleanRooms.index'));
     }
@@ -121,7 +137,7 @@ class CleanRoomController extends AppBaseController
         }
 
         if (empty($cleanRoom)) {
-            Flash::error('Clean Room not found');
+            Flash::error('Limpeza não encontrada.');
 
             return redirect(route('cleanRooms.index'));
         }
@@ -141,15 +157,16 @@ class CleanRoomController extends AppBaseController
         $cleanRoom = $this->cleanRoomRepository->find($id);
 
         if (empty($cleanRoom)) {
-            Flash::error('Clean Room not found');
+            Flash::error('Limpeza não encontrada.');
 
             return redirect(route('cleanRooms.index'));
         }
 
         $tasks = Array();
 
-        foreach ($cleanRoom->tasks as $task) {
-            $tasks[] = $task->id;
+        foreach ($cleanRoom->tasks as $key => $task) {
+            $tasks['id'][] = $task->id;
+            $tasks['time'][$task->id] = $task->time_execution->time_execution;
         }
 
         return view('clean_rooms.edit')->with('cleanRoom', $cleanRoom)->with('tasks', $tasks);
@@ -165,25 +182,41 @@ class CleanRoomController extends AppBaseController
      */
     public function update($id, Request $request)
     {
+        $input = $request->all();
         $cleanRoom = $this->cleanRoomRepository->find($id);
 
         if (empty($cleanRoom)) {
-            Flash::error('Clean Room not found');
+            Flash::error('Limpeza não encontrada');
 
             return redirect(route('cleanRooms.index'));
         }
 
+        $niceNames = array(
+            'room_number' => 'Numero do Quarto',
+            'start_date' => 'Data de início',
+            'activityItem' => 'Atividades'
+        );
+
+        $validator = validator::make($input, [
+            'room_number' => ['required', 'string', 'max:255'],
+            'start_date' => ['required', 'date', 'max:255'],
+            'activityItem' => ['required', 'exists'],
+        ]);
+
+        $validator->setAttributeNames($niceNames);
+        $validator->validate();
+
         $cleanRoom = $this->cleanRoomRepository->update($request->all(), $id);
 
-        $tasks = Array();
+        $tasks = [];
 
-        foreach ($request->activityItem as $valor) {
-           $tasks[] = $valor;
+        for($i = 0; $i < count($input['activityItem']['task']); $i++) {
+            $tasks[$input['activityItem']['task'][$i]] = Array('time_execution' => $input['activityItem']['timeTask'][$i]);
         }
 
         $cleanRoom->tasks()->sync($tasks);
 
-        Flash::success('Clean Room updated successfully.');
+        Flash::success('Limpeza alterada.');
 
         return redirect(route('cleanRooms.index'));
     }
@@ -209,7 +242,7 @@ class CleanRoomController extends AppBaseController
 
         $this->cleanRoomRepository->delete($id);
 
-        Flash::success('Clean Room deleted successfully.');
+        Flash::success('Limpeza removida!');
 
         return redirect(route('cleanRooms.index'));
     }
