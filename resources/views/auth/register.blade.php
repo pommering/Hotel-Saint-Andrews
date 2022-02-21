@@ -38,7 +38,7 @@
 
     <div class="card">
         <div class="card-body register-card-body">
-            <p class="login-box-msg">Register a new membership</p>
+            <p class="login-box-msg">Registrar novo funcionario</p>
 
             <form method="post" action="{{ route('register') }}">
                 @csrf
@@ -101,16 +101,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                            <label for="agreeTerms">
-                                Eu concordo com os <a href="#">termos</a>
-                            </label>
-                        </div>
-                    </div>
+
                     <!-- /.col -->
-                    <div class="col-4">
+                    <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">Registro</button>
                     </div>
                     <!-- /.col -->

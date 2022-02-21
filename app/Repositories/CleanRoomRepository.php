@@ -41,4 +41,5 @@ class CleanRoomRepository extends BaseRepository
     {
         return CleanRoom::class;
     }
+
 }

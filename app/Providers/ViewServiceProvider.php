@@ -31,6 +31,7 @@ class ViewServiceProvider extends ServiceProvider
             $activityItems = Tarefas::pluck('assignment','id')->toArray();
             $view->with('activityItems', $activityItems);
         });
+
         View::composer(['clean_rooms.fields'], function ($view) {
             $userItems = User::pluck('name','id')->toArray();
             $view->with('userItems', $userItems);
