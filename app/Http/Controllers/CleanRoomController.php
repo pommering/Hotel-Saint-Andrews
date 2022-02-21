@@ -26,7 +26,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Display a listing of the CleanRoom.
+     * Pagina de exibição de todos os quartos limpos.
      *
      * @param Request $request
      *
@@ -60,7 +60,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Show the form for creating a new CleanRoom.
+     * Exibe formulario de criação do quarto limpo.
      *
      * @return Response
      */
@@ -70,7 +70,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Store a newly created CleanRoom in storage.
+     * Cria um registro de quato limpo.
      *
      * @param CreateCleanRoomRequest $request
      *
@@ -119,7 +119,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Display the specified CleanRoom.
+     * Exibe os quartos limpos.
      *
      * @param int $id
      *
@@ -146,7 +146,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified CleanRoom.
+     * Exibe informações para alteração de um quarto limpo.
      *
      * @param int $id
      *
@@ -173,7 +173,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Update the specified CleanRoom in storage.
+     * Atualização/Alteração dos quatos limpos.
      *
      * @param int $id
      * @param Request $request
@@ -222,7 +222,7 @@ class CleanRoomController extends AppBaseController
     }
 
     /**
-     * Remove the specified CleanRoom from storage.
+     * Remove um registro de quarto limpo.
      *
      * @param int $id
      *
