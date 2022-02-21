@@ -34,11 +34,11 @@ php artisan serve
 
 ## 🛠️ Construído com
 
-*[php](https://www.php.net/docs.php) 
-*[laravel](https://laravel.com/docs/9.x/installation)
-*[infyom](https://infyom.com/open-source/laravelgenerator/docs/introduction)
-*[bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
-*[mysql](https://dev.mysql.com/doc/)
+* *[php](https://www.php.net/docs.php) 
+* *[laravel](https://laravel.com/docs/9.x/installation)
+* *[infyom](https://infyom.com/open-source/laravelgenerator/docs/introduction)
+* *[bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
+* *[mysql](https://dev.mysql.com/doc/)
 
 ## ✒️ Autor
 
