@@ -23,12 +23,12 @@ class RankingController extends Controller
     }
 
     public function validateDate($date, $format = 'Y-m-d') {
-        $d = DateTime::createFromFormat($format, $date);
-        return $d && $d->format($format) === $date;
+        $dateFormat = DateTime::createFromFormat($format, $date);
+        return $dateFormat && $dateFormat->format($format) === $date;
     }
 
     /**
-     * Display a listing of the CleanRoom.
+     * Mostrando na tela o ranking de faxineiras.
      *
      * @param Request $request
      *

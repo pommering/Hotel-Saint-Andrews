@@ -20,15 +20,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Exibindo dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-
-        /*SELECT MIN(time_execution) FROM `clean_room_tarefas` INNER JOIN clean_rooms on clean_room_tarefas.clean_room_id = clean_rooms.id
-WHERE YEAR(start_date) = YEAR(NOW()) AND MONTH(start_date) = MONTH(NOW());*/
 
         if (Gate::allows('manager')) {
             $time_work = DB::table('clean_room_tarefas')

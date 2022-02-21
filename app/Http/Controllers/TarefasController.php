@@ -23,7 +23,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Display a listing of the Tarefas.
+     * Mostrando todas tarefas registradas.
      *
      * @param Request $request
      *
@@ -38,7 +38,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Show the form for creating a new Tarefas.
+     * Exibindo formulario de criação de tarefas.
      *
      * @return Response
      */
@@ -48,7 +48,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Store a newly created Tarefas in storage.
+     * Criação de uma nova tarefa.
      *
      * @param CreateTarefasRequest $request
      *
@@ -77,7 +77,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Display the specified Tarefas.
+     * Exibe uma tarefa espeficifa.
      *
      * @param int $id
      *
@@ -89,7 +89,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified Tarefas.
+     * Exibe o formulario de edição de uma tarefa.
      *
      * @param int $id
      *
@@ -109,7 +109,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Update the specified Tarefas in storage.
+     * Atualiza uma tarefa.
      *
      * @param int $id
      * @param UpdateTarefasRequest $request
@@ -148,7 +148,7 @@ class TarefasController extends AppBaseController
     }
 
     /**
-     * Remove the specified Tarefas from storage.
+     * Remove uma tarefa especifica.
      *
      * @param int $id
      *

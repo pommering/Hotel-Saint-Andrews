@@ -25,7 +25,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Display a listing of the Usuario.
+     * Exibe todos os usuarios.
      *
      * @param Request $request
      *
@@ -43,7 +43,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Show the form for creating a new Usuario.
+     * Mostra formulario para criação de um usuario.
      *
      * @return Response
      */
@@ -53,7 +53,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Store a newly created Usuario in storage.
+     * Criação de um usuario.
      *
      * @param CreateUsuarioRequest $request
      *
@@ -89,7 +89,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Display the specified Usuario.
+     * Mostra um usuario especifico.
      *
      * @param int $id
      *
@@ -109,7 +109,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified Usuario.
+     * Exibe um formlario para edição de um usuario.
      *
      * @param int $id
      *
@@ -130,7 +130,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Update the specified Usuario in storage.
+     * Atualiza um usuario.
      *
      * @param int $id
      * @param UpdateUsuarioRequest $request
@@ -164,7 +164,7 @@ class UserController extends AppBaseController
     }
 
     /**
-     * Remove the specified Usuario from storage.
+     * Remove um usuario.
      *
      * @param int $id
      *
@@ -188,6 +188,5 @@ class UserController extends AppBaseController
 
         return redirect(route('users.index'));
     }
-
 
 }
