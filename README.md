@@ -39,6 +39,7 @@ php artisan serve
 * [infyom](https://infyom.com/open-source/laravelgenerator/docs/introduction)
 * [bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 * [mysql](https://dev.mysql.com/doc/)
+* [javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 
 ## ✒️ Autor
 
