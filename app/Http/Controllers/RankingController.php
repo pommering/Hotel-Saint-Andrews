@@ -40,10 +40,11 @@ class RankingController extends Controller
         $old_date = DB::table('clean_rooms')
             ->selectRaw('start_date')
             ->orderBy('start_date', 'asc')
+            ->whereNull('deleted_at')
             ->limit(1)
             ->first();
 
-        $old_date = is_null($old_date->start_date) ? ((int)date('Y')+1) : date('Y', strtotime($old_date->start_date));
+        $old_date = (is_null($old_date) || is_null($old_date->start_date)) ? ((int)date('Y')) : date('Y', strtotime($old_date->start_date));
 
         $intervalYears = ((int)date('Y')+1) - (int)$old_date;
 
@@ -73,10 +74,11 @@ class RankingController extends Controller
         }
 
         $ranking = DB::table('users')
-                    ->selectRaw('user_id, users.name, count(*) as total_tasks, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))) as total_works_time,  SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_tasks')
+                    ->selectRaw('clean_rooms.deleted_at, user_id, users.name, count(*) as total_tasks, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))) as total_works_time,  SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_tasks')
                     ->join('clean_rooms', 'users.id', '=', 'clean_rooms.user_id')
                     ->join('clean_room_tarefas', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
                     ->whereBetween('clean_rooms.start_date', $date_search)
+                    ->whereNull('clean_rooms.deleted_at')
                     ->groupBy('users.id')
                     ->orderBy('avg_tasks', 'asc')
                     ->get();
@@ -90,10 +92,11 @@ class RankingController extends Controller
             $rankingInformation[$key]['total_works_time'] = $rank->total_works_time;
 
             $max_avg_time = DB::table('clean_room_tarefas')
-                    ->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_task_max, activities.assignment as name_task')
+                    ->selectRaw('clean_rooms.deleted_at, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_task_max, activities.assignment as name_task')
                     ->join('clean_rooms', 'clean_rooms.id', '=', 'clean_room_tarefas.clean_room_id')
                     ->join('activities', 'activities.id', '=', 'clean_room_tarefas.tarefas_id')
                     ->where('user_id', $rank->user_id)
+                    ->whereNull('clean_rooms.deleted_at')
                     ->groupBy('tarefas_id',`user_id`)
                     ->limit(1)
                     ->orderBy('avg_task_max', 'asc')
@@ -103,10 +106,11 @@ class RankingController extends Controller
             $rankingInformation[$key]['task_max']['name_task'] = $max_avg_time->name_task;
 
             $min_avg_time = DB::table('clean_room_tarefas')
-                    ->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_task_min, activities.assignment as name_task')
+                    ->selectRaw('clean_rooms.deleted_at, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_task_min, activities.assignment as name_task')
                     ->join('clean_rooms', 'clean_rooms.id', '=', 'clean_room_tarefas.clean_room_id')
                     ->join('activities', 'activities.id', '=', 'clean_room_tarefas.tarefas_id')
                     ->where('user_id', $rank->user_id)
+                    ->whereNull('clean_rooms.deleted_at')
                     ->groupBy('tarefas_id',`user_id`)
                     ->limit(1)
                     ->orderBy('avg_task_min', 'desc')

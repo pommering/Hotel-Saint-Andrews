@@ -94,7 +94,7 @@ return [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
         'string' => 'O campo :attribute deve ter ao minimo :min caracteres.',
-        'array' => 'The :attribute must have at least :min items.',
+        'array' => 'As :attribute devem ter pelo menos :min itens.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
     'not_in' => 'The selected :attribute is invalid.',

@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Número do quarto</th>
-                <th>Funcionario responsável</th>
+                <th>Faxineira</th>
                 <th>Tarefas feita</th>
                 <th>Início</th>
                 <th>Término</th>

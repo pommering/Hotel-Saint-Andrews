@@ -60,7 +60,7 @@
                     <li class="user-header bg-primary h-auto">
                         <p>
                             {{ Auth::user()->name }}
-                            <small>Funcionario adicionado em {{ Auth::user()->created_at->format('d/m/Y') }}</small>
+                            <small>Funcionário adicionado em {{ Auth::user()->created_at->format('d/m/Y') }}</small>
                         </p>
                     </li>
                     <!-- Menu Footer-->

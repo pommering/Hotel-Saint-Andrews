@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th>Tarefas</th>
+                <th>Obrigatório</th>
                 @can('manager')
                 <th colspan="2">Ação</th>
                 @endif
@@ -12,6 +13,7 @@
         @foreach($tarefas as $tarefas)
             <tr>
                 <td>{{ $tarefas->assignment }}</td>
+                <td>{{ $tarefas->mandatory ? 'Sim' : 'Não' }}</td>
                 @can('manager')
                 <td width="120">
                     {!! Form::open(['route' => ['tarefas.destroy', $tarefas->id], 'method' => 'delete']) !!}

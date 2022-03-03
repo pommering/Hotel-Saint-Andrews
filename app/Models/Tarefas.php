@@ -27,10 +27,9 @@ class Tarefas extends Model
 
     protected $dates = ['deleted_at'];
 
-
-
     public $fillable = [
-        'assignment'
+        'assignment',
+        'mandatory'
     ];
 
     /**
@@ -40,7 +39,8 @@ class Tarefas extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'assignment' => 'string'
+        'assignment' => 'string',
+        'mandatory' => 'boolean'
     ];
 
     /**

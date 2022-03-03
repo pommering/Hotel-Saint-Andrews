@@ -28,7 +28,9 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(['clean_rooms.fields'], function ($view) {
-            $activityItems = Tarefas::pluck('assignment','id')->toArray();
+            $activityItems = Tarefas::all()->mapWithKeys(function ($item, $key) {
+                return [$item['id'] => [ 'assignment' => $item['assignment'], 'mandatory' => $item['mandatory']]];
+            })->toArray();
             $view->with('activityItems', $activityItems);
         });
 

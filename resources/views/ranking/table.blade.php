@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th>Posição</th>
-                <th>Nome do Funcionario</th>
+                <th>Nome do Funcionário</th>
                 <th>Quantidade de Tarefas Realizadas</th>
                 <th>Tempo total trabalho</th>
                 <th>Média da Atividade mais rápida realizada</th>

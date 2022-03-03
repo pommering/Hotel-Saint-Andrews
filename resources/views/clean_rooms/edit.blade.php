@@ -27,7 +27,7 @@
 
             <div class="card-footer">
                 {!! Form::submit('Salvar', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('cleanRooms.index') }}" class="btn btn-default">Cancel</a>
+                <a href="{{ route('cleanRooms.index') }}" class="btn btn-default">Cancelar</a>
             </div>
 
             {!! Form::close() !!}

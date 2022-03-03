@@ -38,7 +38,7 @@
 
     <div class="card">
         <div class="card-body register-card-body">
-            <p class="login-box-msg">Registrar novo funcionario</p>
+            <p class="login-box-msg">Registrar novo funcionário</p>
 
             <form method="post" action="{{ route('register') }}">
                 @csrf

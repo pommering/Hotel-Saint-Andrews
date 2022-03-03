@@ -83,17 +83,26 @@ class CleanRoomController extends AppBaseController
         $niceNames = array(
             'room_number' => 'Numero do Quarto',
             'start_date' => 'Data de início',
-            'activityItem' => 'Atividades'
+            'activityItem.timeTask' => 'Atividades'
         );
 
         $validator = validator::make($input, [
             'room_number' => ['required', 'string', 'max:255'],
             'start_date' => ['required', 'date', 'max:255'],
-            'activityItem' => ['required', 'exists'],
+            'activityItem.timeTask' => "required|array|min:2",
+        ],[
+            'numeric' => 'O tempo de serviço deve ser maior que 0 segundos',
         ]);
+
+        $validator->sometimes('activityItem.timeTask.*', 'numeric', function ($input, $item) {
+            $parts = explode(':', $item);
+            $seconds = ($parts[0] * 60 * 60) + ($parts[1] * 60) + $parts[2];
+            return $seconds <= 0;
+        });
 
         $validator->setAttributeNames($niceNames);
         $validator->validate();
+
 
         $tasks = Array();
 
@@ -113,7 +122,7 @@ class CleanRoomController extends AppBaseController
 
         $cleanRoom->tasks()->attach($tasks);
 
-        Flash::success('Limpeza criada com sucesso.');
+        Flash::success('Limpeza realizada com sucesso.');
 
         return redirect(route('cleanRooms.index'));
     }
@@ -200,8 +209,16 @@ class CleanRoomController extends AppBaseController
         $validator = validator::make($input, [
             'room_number' => ['required', 'string', 'max:255'],
             'start_date' => ['required', 'date', 'max:255'],
-            'activityItem' => ['required', 'exists'],
+            'activityItem.timeTask' => "required|array|min:2",
+        ],[
+            'numeric' => 'O tempo de serviço deve ser maior que 0 segundos',
         ]);
+
+        $validator->sometimes('activityItem.timeTask.*', 'numeric', function ($input, $item) {
+            $parts = explode(':', $item);
+            $seconds = ($parts[0] * 60 * 60) + ($parts[1] * 60) + $parts[2];
+            return $seconds <= 0;
+        });
 
         $validator->setAttributeNames($niceNames);
         $validator->validate();
