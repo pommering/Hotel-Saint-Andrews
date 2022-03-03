@@ -30,16 +30,18 @@
     <!-- Header Section Begin -->
     <header class="header-section">
         <div class="container-fluid">
-            <div class="inner-header  d-flex justify-content-center align-items-center">
+            <div class="inner-header d-flex justify-content-center align-items-center">
                 <div class="logo">
-                    <a href="./index.html"><img src="{{asset('images/logoOnlyImage.png')}}" alt=""></a>
+                    <a href="#"><img src="{{asset('images/logoOnlyImage.png')}}" alt=""></a>
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-12">
-                            <nav class="main-menu mobile-menu">
+                            <nav class="main-menu mobile-menu d-flex justify-content-between w-100">
                                 <ul>
-                                    <li><a href="./index.html">Home</a></li>
+                                    <li><a href="#">Home</a></li>
+                                </ul>
+                                <ul>
                                     @if (Route::has('login'))
                                         @auth
                                             <li><a href="{{ url('/home') }}">Sistema</a></li>
@@ -47,7 +49,7 @@
                                             <li><a href="{{ route('login') }}">Entrar</a></li>
 
                                             @if (Route::has('register'))
-                                                <li><a href="{{ route('register') }}">Regintrar</a></li>
+                                                <li><a href="{{ route('register') }}">Registrar</a></li>
                                             @endif
                                         @endauth
                                     @endif
