@@ -33,6 +33,7 @@ class HomeController extends Controller
                 ->join('clean_rooms', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
                 ->whereYear('start_date', date('Y'))
                 ->whereMonth('start_date', date('m'))
+                ->whereNull('clean_rooms.deleted_at')
                 ->first();
 
             if(empty($time_work->time_work)) {
@@ -44,6 +45,7 @@ class HomeController extends Controller
                 ->join('clean_rooms', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
                 ->whereYear('start_date', date('Y'))
                 ->whereMonth('start_date', date('m'))
+                ->whereNull('clean_rooms.deleted_at')
                 ->first();
 
             if(empty($all_clear->all_clear)) {
@@ -55,6 +57,7 @@ class HomeController extends Controller
                 ->join('clean_rooms', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
                 ->whereYear('start_date', date('Y'))
                 ->whereMonth('start_date', date('m'))
+                ->whereNull('clean_rooms.deleted_at')
                 ->first();
 
             if(empty($fast_time->fast_time)) {
@@ -69,6 +72,7 @@ class HomeController extends Controller
                 ->join('users', 'users.id', '=', 'clean_rooms.user_id')
                 ->whereYear('start_date', date('Y'))
                 ->whereMonth('start_date', date('m'))
+                ->whereNull('clean_rooms.deleted_at')
                 ->where('user_id', Auth::user()->id)
                 ->first();
 
@@ -82,6 +86,7 @@ class HomeController extends Controller
                 ->join('users', 'users.id', '=', 'clean_rooms.user_id')
                 ->whereYear('start_date', date('Y'))
                 ->whereMonth('start_date', date('m'))
+                ->whereNull('clean_rooms.deleted_at')
                 ->where('user_id', Auth::user()->id)
                 ->first();
 
@@ -95,6 +100,7 @@ class HomeController extends Controller
                 ->join('users', 'users.id', '=', 'clean_rooms.user_id')
                 ->whereYear('start_date', date('Y'))
                 ->whereMonth('start_date', date('m'))
+                ->whereNull('clean_rooms.deleted_at')
                 ->where('user_id', Auth::user()->id)
                 ->first();
 

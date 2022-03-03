@@ -34,6 +34,7 @@ class SampleChart extends BaseChart
             ->selectRaw('*, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))) as horas, DATE(start_date) as date, DAY(start_date) as day')
             ->join('clean_rooms', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
             ->whereBetween('clean_rooms.start_date', [$dateInitial , $dateFinal])
+            ->whereNull('clean_rooms.deleted_at')
             ->groupBy('date')
             ->get();
         }else {
@@ -42,6 +43,7 @@ class SampleChart extends BaseChart
             ->join('clean_rooms', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
             ->whereBetween('clean_rooms.start_date', [$dateInitial , $dateFinal])
             ->where('user_id', Auth::user()->id)
+            ->whereNull('clean_rooms.deleted_at')
             ->groupBy('date')
             ->get();
         }
@@ -60,7 +62,7 @@ class SampleChart extends BaseChart
             if(array_key_exists($i,$horasDays)) {
                 $parts = explode(':', $horasDays[$i]);
                 $seconds = ($parts[0] * 60 * 60) + ($parts[1] * 60) + $parts[2];
-                $dados[] = round($seconds/60/60, 3);
+                $dados[] = round($seconds/60, 3);
             }else {
                 $dados[] = 0;
             }
@@ -74,6 +76,6 @@ class SampleChart extends BaseChart
 
         return Chartisan::build()
             ->labels($days)
-            ->dataset('Horas', $dados);
+            ->dataset('Minutos', $dados);
     }
 }
