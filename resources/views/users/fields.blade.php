@@ -6,7 +6,7 @@
 
 <!-- Username Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('username', 'Acesso:') !!}
+    {!! Form::label('username', 'Username:') !!}
     {!! Form::text('username', null, ['class' => 'form-control','maxlength' => 255,'maxlength' => 255]) !!}
 </div>
 
@@ -18,7 +18,7 @@
 
 <!-- Manager Field -->
 @cannot('equal-id', $users)
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-6 d-flex align-items-end">
         <div class="form-check">
             {!! Form::hidden('manager', 0, ['class' => 'form-check-input']) !!}
             {!! Form::checkbox('manager', '1', null, ['class' => 'form-check-input']) !!}
