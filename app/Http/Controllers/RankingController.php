@@ -74,7 +74,7 @@ class RankingController extends Controller
         }
 
         $ranking = DB::table('users')
-                    ->selectRaw('clean_rooms.deleted_at, user_id, users.name, count(*) as total_tasks, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))) as total_works_time,  SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_tasks')
+                    ->selectRaw('clean_rooms.deleted_at, user_id, users.name, count(*) as total_tasks, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))) as total_works_time, SEC_TO_TIME(SUM(TIME_TO_SEC(`time_execution`))/COUNT(*)) as avg_tasks')
                     ->join('clean_rooms', 'users.id', '=', 'clean_rooms.user_id')
                     ->join('clean_room_tarefas', 'clean_room_tarefas.clean_room_id', '=', 'clean_rooms.id')
                     ->whereBetween('clean_rooms.start_date', $date_search)
@@ -97,6 +97,7 @@ class RankingController extends Controller
                     ->join('activities', 'activities.id', '=', 'clean_room_tarefas.tarefas_id')
                     ->where('user_id', $rank->user_id)
                     ->whereNull('clean_rooms.deleted_at')
+                    ->whereBetween('clean_rooms.start_date', $date_search)
                     ->groupBy('tarefas_id',`user_id`)
                     ->limit(1)
                     ->orderBy('avg_task_max', 'asc')
@@ -111,6 +112,7 @@ class RankingController extends Controller
                     ->join('activities', 'activities.id', '=', 'clean_room_tarefas.tarefas_id')
                     ->where('user_id', $rank->user_id)
                     ->whereNull('clean_rooms.deleted_at')
+                    ->whereBetween('clean_rooms.start_date', $date_search)
                     ->groupBy('tarefas_id',`user_id`)
                     ->limit(1)
                     ->orderBy('avg_task_min', 'desc')
