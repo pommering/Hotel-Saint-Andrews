@@ -149,8 +149,13 @@ class UserController extends AppBaseController
         $updateUser = [
             'name' => $request->name,
             'username' => $request->username,
-            'manager' => $request->manager,
+            'manager' => $request->manager
         ];
+
+        if(!isset($request->manager)) {
+            $updateUser['manager'] = $usuario->manager;
+        }
+
 
         if(!empty($request->password)) {
             $updateUser['password'] = Hash::make($request->password);
