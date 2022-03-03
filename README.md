@@ -28,6 +28,7 @@ renomear e configurar o arquivo exemplo.env
 criar uma tabela no banco de dados com o nome especificado no .env (default: hotel_saint_andrews)
 php artisan key:generate
 php artisan migrate
+php artisan db:seed
 php artisan serve
 
 ```
